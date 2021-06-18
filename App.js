@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
-import {openPopupWidget} from 'react-calendly';
 import {Appbar} from 'react-native-paper';
-import {Linking} from 'react-native';
+import {WebView} from 'react-native-webview';
+import {IconButton, Colors} from 'react-native-paper';
 import {
   View,
+  Modal,
   SafeAreaView,
   TouchableHighlight,
   TouchableOpacity,
@@ -12,7 +13,6 @@ import {
   StyleSheet,
   Button,
   TextInput,
-  FlatList,
   Image,
   Alert,
 } from 'react-native';
@@ -20,6 +20,10 @@ import {
 export default class App extends Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      show: false,
+    };
   }
 
   render() {
@@ -90,10 +94,37 @@ export default class App extends Component {
             <TouchableOpacity
               style={styles.scheduleBtn}
               onPress={() => {
-                Linking.openURL('https://calendly.com/info-27679/15min');
+                this.setState({show: true});
               }}>
               <Text>SCHEDULE</Text>
             </TouchableOpacity>
+
+            <Modal
+              animationType="slide"
+              transparent={true}
+              visible={this.state.show}>
+              <View
+                style={{
+                  flex: 1,
+                  backgroundColor: '#000000aa',
+                }}>
+                <View style={styles.container}>
+                  <WebView
+                    source={{uri: 'https://calendly.com/info-27679/15min'}}
+                  />
+
+                  <IconButton
+                    style={styles.closeButton}
+                    icon="close"
+                    color={Colors.green500}
+                    size={35}
+                    onPress={() => {
+                      this.setState({show: false});
+                    }}
+                  />
+                </View>
+              </View>
+            </Modal>
           </View>
           {/* Health history Image and button */}
           <View
@@ -179,5 +210,16 @@ const styles = StyleSheet.create({
     tintColor: '#1f8e46',
     width: '37%',
     height: '325%',
+  },
+  container: {
+    flex: 1,
+    margin: '6%',
+    padding: '4%',
+    backgroundColor: '#ffffff',
+    borderRadius: 33,
+  },
+  closeButton: {
+    position: 'absolute',
+    top: '0.5%',
   },
 });
