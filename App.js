@@ -99,6 +99,7 @@ export default class App extends Component {
             </TouchableOpacity>
 
             <Modal
+            
               animationType="slide"
               transparent={true}
               onRequestClose={() => {
