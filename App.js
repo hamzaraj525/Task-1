@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {Appbar} from 'react-native-paper';
 import {WebView} from 'react-native-webview';
-import {IconButton, Colors} from 'react-native-paper';
 import {
   View,
   Modal,
@@ -43,7 +42,7 @@ export default class App extends Component {
           />
           <Appbar.Action
             icon="dots-vertical"
-            onPress={() => Alert.alert('3 Dots Button pressed')}
+            onPress={() => Alert.alert('Menu Button pressed')}
             style={styles.icon}
           />
         </Appbar.Header>
@@ -102,6 +101,9 @@ export default class App extends Component {
             <Modal
               animationType="slide"
               transparent={true}
+              onRequestClose={() => {
+                this.setState({show: false});
+              }}
               visible={this.state.show}>
               <View
                 style={{
@@ -111,16 +113,6 @@ export default class App extends Component {
                 <View style={styles.container}>
                   <WebView
                     source={{uri: 'https://calendly.com/info-27679/15min'}}
-                  />
-
-                  <IconButton
-                    style={styles.closeButton}
-                    icon="close"
-                    color={Colors.green500}
-                    size={35}
-                    onPress={() => {
-                      this.setState({show: false});
-                    }}
                   />
                 </View>
               </View>
@@ -204,12 +196,12 @@ const styles = StyleSheet.create({
   tinyLogo: {
     tintColor: '#1f8e46',
     width: '30%',
-    height: '234%',
+    height: '255%',
   },
   helpLogo: {
     tintColor: '#1f8e46',
-    width: '37%',
-    height: '325%',
+    width: '40%',
+    height: '370%',
   },
   container: {
     flex: 1,
@@ -217,9 +209,5 @@ const styles = StyleSheet.create({
     padding: '4%',
     backgroundColor: '#ffffff',
     borderRadius: 33,
-  },
-  closeButton: {
-    position: 'absolute',
-    top: '0.5%',
   },
 });
